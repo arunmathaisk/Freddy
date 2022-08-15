@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ESP32 Blockly workspace Demo</title>
+  <p>
+    <u>
+      <h3>ESP32 Blockly Workspace Demo</h3>
+    </u>
+  </p>
+  <script src="./node_modules/blockly/blockly_compressed.js"></script>
+  <script src="./node_modules/blockly/blocks_compressed.js"></script>
+  <script src="./node_modules/blockly/msg/en.js"></script>
+  <script src="./node_modules/blockly/python_compressed.js"></script>
+
+  <script>
+    var toolbox = {
+      "kind": "categoryToolbox",
+      "contents": [
+        {
+          "kind": "category",
+          "name": "Control",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "controls_if"
+            },
+          ]
+        },
+        {
+          "kind": "category",
+          "name": "Logic",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "logic_compare"
+            },
+            {
+              "kind": "block",
+              "type": "logic_operation"
+            },
+            {
+              "kind": "block",
+              "type": "logic_boolean"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+<body>
+
+  <div>
+    <div class="blocks_div">
+      <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    </div>
+     <br>
+     <br>
+    <div class="textarea_div">
+      <textarea id="textarea" rows="10" cols="50"></textarea>
+    </div>
+  </div>
+
+
+  <script>
+    var workspace = Blockly.inject('blocklyDiv', { toolbox: toolbox });
+
+    function myUpdateFunction(event) {
+      var code = Blockly.Python.workspaceToCode(workspace);
+      document.getElementById('textarea').value = code;
+    }
+    workspace.addChangeListener(myUpdateFunction);
+  </script>
+
+</body>
+
+</html>
