@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"name": "Testing-New-Thing",
+			"path": "..\\Testing-New-Thing"
+		},
+		{
+			"name": "serial:/COM8",
+			"uri": "serial://com8/"
+		},
+		{
+			"name": "SH1106",
+			"path": "."
+		},
+		{
+			"name": "WebREPL",
+			"path": "..\\..\\WebREPL"
+		}
+	]
+}
