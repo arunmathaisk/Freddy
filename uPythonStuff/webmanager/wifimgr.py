@@ -3,7 +3,7 @@ import socket
 import ure
 import time
 
-ap_ssid = "Freddy's Wifi"
+ap_ssid = "Freddy"
 ap_password = "freddy"
 ap_authmode = 3  # WPA2
 
