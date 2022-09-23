@@ -1,5 +1,5 @@
 
-const url="ws://192.168.35.176:8266"
+const url="ws://192.168.4.1:8266"
 const start_but = document.getElementById("Start");
 start_but.disabled=true
 const socket = new WebSocket(url)
@@ -134,4 +134,4 @@ start_but.addEventListener("click",()=>{
   for (let i = 0; i < linesofcode.length ; i++) {
     socket.send(linesofcode[i])
   }
-}) 
+})
