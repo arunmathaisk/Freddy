@@ -119,6 +119,7 @@ class SH1106(framebuf.FrameBuffer):
     def init_display(self):
         self.reset()
         self.fill(0)
+        self.show()
         self.poweron()
         # rotate90 requires a call to flip() for setting up.
         self.flip(self.flip_en)
@@ -128,6 +129,8 @@ class SH1106(framebuf.FrameBuffer):
 
     def poweron(self):
         self.write_cmd(_SET_DISP | 0x01)
+        if self.delay:
+            time.sleep_ms(self.delay)
 
     def flip(self, flag=None, update=True):
         if flag is None:
@@ -170,10 +173,13 @@ class SH1106(framebuf.FrameBuffer):
                 self.write_data(db[(w*page):(w*page+w)])
         self.pages_to_update = 0
 
-    def pixel(self, x, y, color):
-        super().pixel(x, y, color)
-        page = y // 8
-        self.pages_to_update |= 1 << page
+    def pixel(self, x, y, color=None):
+        if color is None:
+            return super().pixel(x, y)
+        else:
+            super().pixel(x, y , color)
+            page = y // 8
+            self.pages_to_update |= 1 << page
 
     def text(self, text, x, y, color=1):
         super().text(text, x, y, color)
@@ -189,7 +195,7 @@ class SH1106(framebuf.FrameBuffer):
 
     def vline(self, x, y, h, color):
         super().vline(x, y, h, color)
-        self.register_updates(y, y+h)
+        self.register_updates(y, y+h-1)
 
     def fill(self, color):
         super().fill(color)
@@ -197,7 +203,7 @@ class SH1106(framebuf.FrameBuffer):
 
     def blit(self, fbuf, x, y, key=-1, palette=None):
         super().blit(fbuf, x, y, key, palette)
-        self.register_updates(y, y+fbuf.height)
+        self.register_updates(y, y+self.height)
 
     def scroll(self, x, y):
         # my understanding is that scroll() does a full screen change
@@ -206,18 +212,18 @@ class SH1106(framebuf.FrameBuffer):
 
     def fill_rect(self, x, y, w, h, color):
         super().fill_rect(x, y, w, h, color)
-        self.register_updates(y, y+h)
+        self.register_updates(y, y+h-1)
 
     def rect(self, x, y, w, h, color):
         super().rect(x, y, w, h, color)
-        self.register_updates(y, y+h)
+        self.register_updates(y, y+h-1)
 
     def register_updates(self, y0, y1=None):
         # this function takes the top and optional bottom address of the changes made
         # and updates the pages_to_change list with any changed pages
         # that are not yet on the list
-        start_page = y0 // 8
-        end_page = y1 // 8 if y1 is not None else start_page
+        start_page = max(0, y0 // 8)
+        end_page = max(0, y1 // 8) if y1 is not None else start_page
         # rearrange start_page and end_page if coordinates were given from bottom to top
         if start_page > end_page:
             start_page, end_page = end_page, start_page
@@ -236,11 +242,12 @@ class SH1106(framebuf.FrameBuffer):
 
 class SH1106_I2C(SH1106):
     def __init__(self, width, height, i2c, res=None, addr=0x3c,
-                 rotate=0, external_vcc=False):
+                 rotate=0, external_vcc=False, delay=0):
         self.i2c = i2c
         self.addr = addr
         self.res = res
         self.temp = bytearray(2)
+        self.delay = delay
         if res is not None:
             res.init(res.OUT, value=1)
         super().__init__(width, height, external_vcc, rotate)
@@ -259,8 +266,7 @@ class SH1106_I2C(SH1106):
 
 class SH1106_SPI(SH1106):
     def __init__(self, width, height, spi, dc, res=None, cs=None,
-                 rotate=0, external_vcc=False):
-        self.rate = 10 * 1000 * 1000
+                 rotate=0, external_vcc=False, delay=0):
         dc.init(dc.OUT, value=0)
         if res is not None:
             res.init(res.OUT, value=0)
@@ -270,10 +276,10 @@ class SH1106_SPI(SH1106):
         self.dc = dc
         self.res = res
         self.cs = cs
+        self.delay = delay
         super().__init__(width, height, external_vcc, rotate)
 
     def write_cmd(self, cmd):
-        self.spi.init(baudrate=self.rate, polarity=0, phase=0)
         if self.cs is not None:
             self.cs(1)
             self.dc(0)
@@ -285,7 +291,6 @@ class SH1106_SPI(SH1106):
             self.spi.write(bytearray([cmd]))
 
     def write_data(self, buf):
-        self.spi.init(baudrate=self.rate, polarity=0, phase=0)
         if self.cs is not None:
             self.cs(1)
             self.dc(1)
