@@ -25,14 +25,6 @@ while ap.active() == False:
 print('Connection successful')
 list_ip = ap.ifconfig()
 
-# def web_page():
-#   html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-#   <body><h1>Hello, World!</h1></body></html>"""
-#   return html
-
-# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# s.bind(('', 80))
-# s.listen(5)
 def show_ip(ipaddress):
   from machine import SoftI2C,Pin
   sda=Pin(21)
