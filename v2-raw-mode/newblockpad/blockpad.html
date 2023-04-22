@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockpad</title>
+    <link rel="stylesheet" href="/css/blockpad.css">
+    <script src="./node_modules/blockly/blockly_compressed.js"></script>
+    <script src="./node_modules/blockly/blocks_compressed.js"></script>
+    <script src="./node_modules/blockly/msg/en.js"></script>
+    <script src="./node_modules/blockly/python_compressed.js"></script>
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body>
+<div id="content">
+    <div id="blocklyArea">
+        <div id="blocklyDiv" ></div>
+        <div id="label">Workspace</div>
+    </div>
+    <div id="rightside">
+        <div id="header">
+            <h1>Filename</h1>
+            <div id="play" class="fa fa-play" style="font-size:36px;"></div>
+            <div id="info" class="fa fa-question-circle" style="font-size:36px"></div>
+        </div>
+        <div id="camera">
+            <h2>Camera</h2>
+            <img id="cam_frame" width="500px" height="350px" frameborder="0" placeholder="Loading...."></img>
+            <div id="camcontrols">
+                <button class="cam"><i class="fa fa-rotate-left"></i></button>
+                <button class="cam" id ="cam_but" name="stop">Start/Stop</button>
+                <button class="cam"><i class="fa fa-rotate-right"></i></button>
+            </div>
+        </div>
+        <div id="utils">
+<button class="util">Save</button>
+<button class="util">Draw On Me</button>
+<button class="util">Documents</button>
+        </div>
+    </div>
+</div>
+
+    <script src="/blocks/custom/display.js"></script>
+    <script src="/blocks/custom/motors.js"></script>
+    <script src="/blocks/custom/allcustom.js"></script>
+    <script src="/blocks/default/logic.js"></script>
+    <script src="/codegen/displaygen.js"></script>
+    <script src="/codegen/motorgen.js"></script>
+    <script src="/connection/websocket.js"></script>
+    <script src="/js/blockpad.js"></script>
+    <script src="/js/webcam.js"></script>
+    
+</body>
+</html>

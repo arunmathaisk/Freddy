@@ -1,0 +1,111 @@
+@font-face {
+    font-family: freddy;
+    src: url(/fonts/SassoonInfantStd-Bold.otf);
+  }
+body{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    overflow: hidden;
+    background-color: yellow;
+    font-family: freddy;
+}
+button {
+    padding: 17px 40px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgb(255, 56, 86);
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    transition: all .3s ease;
+    box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+    color: hsl(0, 0%, 100%);
+    margin-right: 0.3vw;
+   }
+   
+   button:hover {
+    box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
+   }
+   
+   button:active {
+    background-color: rgb(255, 56, 86);
+    /*50, 168, 80*/
+    box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 200ms;
+   }
+a{
+    list-style-type: none;
+}
+.blocklySvg { 
+    background-color: rgb(255, 255, 255) !important; 
+    border: 5px 5px 5px 5px solid aqua;
+}
+#content{
+    /* position: relative;
+    left:50px; */
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+#blocklyDiv{
+    border: 5px aquamarine;
+    width: 50vw;
+    height: 100vw;
+}
+#rightside{
+    width: 50vw;
+    height: 100vh;
+}
+iframe{
+    border : 5px solid  rgb(0, 0, 0);
+    height: 45vh;
+    width: 44vw;
+}
+#ipaddr{
+    display: none;
+    background-color: red;
+    height: 5;
+}
+#header{
+    height: 10vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+h1{
+    position: relative;
+    left:3.5vh
+}
+#play{
+    position: relative;
+    left: 33vw;
+}
+#info{
+    position: relative;
+    left:35vw;
+}
+#camera{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+#camcontrols{
+    margin: 50px;
+    display: flex;
+}
+.cam{
+    border-radius: 100%;
+}
+#label{
+    position: absolute;
+    top: 50vh;
+    left: 25vw;
+    z-index: 1;
+}
+#utils{
+    display: flex;
+    justify-content: center;
+}

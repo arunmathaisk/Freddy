@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "blockly": "^9.2.1",
+    "package.json": "^2.0.1"
+  }
+}

@@ -1,0 +1,10 @@
+let block_array = []
+block_array.push(display_init)
+block_array.push(display_block)
+block_array.push(motor_init_motors)
+block_array.push(motor_move_block)
+block_array.push(motor_halt_motor)
+block_array.push(display_block_left)
+block_array.push(display_var)
+block_array.push(display_coord)
+Blockly.defineBlocksWithJsonArray(block_array)
